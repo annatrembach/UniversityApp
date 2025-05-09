@@ -3,7 +3,6 @@ package com.university.model;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -26,12 +25,11 @@ public class Lector {
     private Degree degree;
 
     @OneToOne(mappedBy = "head", fetch = FetchType.EAGER)
-    @Column(name = "head_of")
     private Department headOf;
 
     @ManyToMany
     @JoinTable(
-            name = "lector_department",
+            name = "department_lector",
             joinColumns = @JoinColumn(name = "lector_id"),
             inverseJoinColumns = @JoinColumn(name = "department_id")
     )

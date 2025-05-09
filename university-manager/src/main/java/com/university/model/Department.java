@@ -18,7 +18,7 @@ public class Department {
     @JoinColumn(name = "head_id")
     private Lector head;
 
-    @ManyToMany(mappedBy = "departments")
+    @ManyToMany(mappedBy = "departments", fetch = FetchType.EAGER)
     private List<Lector> lectors;
 
     // constructors
@@ -76,4 +76,6 @@ public class Department {
     public int hashCode() {
         return Objects.hash(Id, name, head, lectors);
     }
+
+
 }
