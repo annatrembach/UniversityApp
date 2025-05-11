@@ -9,17 +9,13 @@ import org.springframework.stereotype.Component;
 public class GlobalSearch implements Command {
 
     @Autowired
-    public CommandService commandService;
+    private CommandService commandService;
 
     @Override
     public boolean execute(String input) {
         if (!input.startsWith("Global search by ")) { return false; }
         String template = input.replace("Global search by ", "").trim();
-        try {
-            System.out.println(commandService.globalSearch(template));
-        } catch (RuntimeException ex) {
-            System.out.println(ex.getMessage());
-        }
+        System.out.println(commandService.globalSearch(template));
         return true;
     }
 }

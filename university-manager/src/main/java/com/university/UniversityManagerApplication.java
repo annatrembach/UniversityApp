@@ -1,6 +1,8 @@
 package com.university;
 
-import com.university.console.CommandProcessor;
+import com.university.data.DbContext;
+import com.university.console.CommandInvoker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,11 +12,11 @@ import java.util.Scanner;
 @SpringBootApplication
 public class UniversityManagerApplication implements CommandLineRunner {
 
-	public CommandProcessor commandProcessor;
+	@Autowired
+	private CommandInvoker commandInvoker;
 
-	public UniversityManagerApplication(CommandProcessor commandProcessor) {
-		this.commandProcessor = commandProcessor;
-	}
+	@Autowired
+	private DbContext dbContext;
 
 	public static void main(String[] args) {
 		SpringApplication.run(UniversityManagerApplication.class, args);
@@ -22,12 +24,15 @@ public class UniversityManagerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		System.out.println("Welcome to University App. Type your command:");
+		dbContext.initTestData();
+
+		System.out.println("Welcome to University App");
 		Scanner scanner = new Scanner(System.in);
 		while (true) {
+			System.out.print("Type your command: \n");
 			String input = scanner.nextLine();
 			if ("exit".equalsIgnoreCase(input)) break;
-			commandProcessor.processCommand(input);
+			commandInvoker.executeCommand(input);
 		}
 	}
 }

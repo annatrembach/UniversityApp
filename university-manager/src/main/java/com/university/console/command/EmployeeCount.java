@@ -9,17 +9,13 @@ import org.springframework.stereotype.Component;
 public class EmployeeCount implements Command {
 
     @Autowired
-    public CommandService commandService;
+    private CommandService commandService;
 
     @Override
     public boolean execute(String input) {
         if (!input.startsWith("Show count of employee for")) { return false; }
         String departmentName = input.replace("Show count of employee for", "").trim();
-        try {
-            System.out.println(commandService.getEmployeeCount(departmentName));
-        } catch (RuntimeException ex) {
-            System.out.println(ex.getMessage());
-        }
+        System.out.println(commandService.getEmployeeCount(departmentName));
         return true;
     }
 }

@@ -19,7 +19,7 @@ public class Lector {
     @Column(name = "last_name")
     private String lastName;
 
-    private Double Salary;
+    private Double salary;
 
     @Enumerated(EnumType.STRING)
     private Degree degree;
@@ -35,21 +35,15 @@ public class Lector {
     )
     private Set<Department> departments = new HashSet<>();
 
-    // constructors
-
-    public Lector(String firstName, String lastName, Double salary, Degree degree, Department headOf, Set<Department> departments) {
+    public Lector(String firstName, String lastName, Double salary, Degree degree) {
         this.firstName = firstName;
         this.lastName = lastName;
-        Salary = salary;
+        this.salary = salary;
         this.degree = degree;
-        this.headOf = headOf;
-        this.departments = departments;
     }
 
     public Lector() {
     }
-
-    // getters and setters
 
     public Long getId() {
         return Id;
@@ -72,11 +66,11 @@ public class Lector {
     }
 
     public Double getSalary() {
-        return Salary;
+        return salary;
     }
 
     public void setSalary(Double salary) {
-        Salary = salary;
+        this.salary = salary;
     }
 
     public Degree getDegree() {
@@ -101,20 +95,5 @@ public class Lector {
 
     public void setDepartments(Set<Department> departments) {
         this.departments = departments;
-    }
-
-    // equals and hashCode
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Lector lector = (Lector) o;
-        return Objects.equals(Id, lector.Id) && Objects.equals(firstName, lector.firstName) && Objects.equals(lastName, lector.lastName) && Objects.equals(Salary, lector.Salary) && degree == lector.degree && Objects.equals(headOf, lector.headOf) && Objects.equals(departments, lector.departments);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Id, firstName, lastName, Salary, degree, headOf, departments);
     }
 }

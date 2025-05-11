@@ -9,24 +9,17 @@ import org.springframework.stereotype.Component;
 public class DepartmentStatistics implements Command {
 
     @Autowired
-    public CommandService commandService;
+    private CommandService commandService;
 
     @Override
     public boolean execute(String input) {
         if (!input.startsWith("Show") || !input.endsWith("statistics")) {
             return false;
         }
-
         String departmentName = input.replace("Show", "")
                 .replace("statistics", "")
                 .trim();
-
-        try {
-            System.out.println(commandService.getStatistics(departmentName));
-        } catch (RuntimeException ex) {
-            System.out.println(ex.getMessage());
-        }
-
+        System.out.println(commandService.getStatistics(departmentName));
         return true;
     }
 

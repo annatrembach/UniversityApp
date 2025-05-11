@@ -9,17 +9,13 @@ import org.springframework.stereotype.Component;
 public class HeadOfDepartment implements Command {
 
     @Autowired
-    public CommandService commandService;
+    private CommandService commandService;
 
     @Override
     public boolean execute(String input) {
         if (!input.startsWith("Who is head of department")) { return false; }
         String departmentName = input.replace("Who is head of department", "").trim();
-        try {
-            System.out.println(commandService.getHeadOfDepartment(departmentName));
-        } catch (RuntimeException ex) {
-            System.out.println(ex.getMessage());
-        }
+        System.out.println(commandService.getHeadOfDepartment(departmentName));
         return true;
     }
 }

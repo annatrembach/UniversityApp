@@ -17,19 +17,14 @@ import java.util.stream.Collectors;
 public class CommandService {
 
     @Autowired
-    public  DepartmentRepository departmentRepository;
+    private  DepartmentRepository departmentRepository;
 
     @Autowired
-    public LectorRepository lectorRepository;
-
-    public CommandService(DepartmentRepository departmentRepo, LectorRepository lectorRepo) {
-        this.departmentRepository = departmentRepo;
-        this.lectorRepository = lectorRepo;
-    }
+    private LectorRepository lectorRepository;
 
     public String getHeadOfDepartment(String departmentName) {
-        Department department = departmentRepository.findByName(departmentName)
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+        Department department = departmentRepository.findByName(departmentName);
+        if (department == null) { return "Department not found"; }
         String headFirstName = department.getHead().getFirstName();
         String headLastName = department.getHead().getLastName();
         return "Head of " + departmentName + " department is " + headLastName + " " + headFirstName;
@@ -37,8 +32,8 @@ public class CommandService {
 
 
     public String getStatistics(String departmentName) {
-        Department department = departmentRepository.findByName(departmentName)
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+        Department department = departmentRepository.findByName(departmentName);
+        if (department == null) { return "Department not found"; }
         Map<Degree, Long> stats = department.getLectors().stream()
                 .collect(Collectors.groupingBy(Lector::getDegree, Collectors.counting()));
         return "assistants - " + stats.getOrDefault(Degree.ASSISTANT, 0L) + "\n" +
@@ -47,16 +42,16 @@ public class CommandService {
     }
 
     public String getAverageSalary(String departmentName) {
-        Department department = departmentRepository.findByName(departmentName)
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+        Department department = departmentRepository.findByName(departmentName);
+        if (department == null) { return "Department not found"; }
         Double averageSalary = department.getLectors().stream()
                 .mapToDouble(Lector::getSalary).average().orElse(0.0);
         return "The average salary of " + departmentName + " is " + averageSalary;
     }
 
     public String getEmployeeCount(String departmentName) {
-        Department department = departmentRepository.findByName(departmentName)
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+        Department department = departmentRepository.findByName(departmentName);
+        if (department == null) { return "Department not found"; }
         return String.valueOf(department.getLectors().size());
     }
 

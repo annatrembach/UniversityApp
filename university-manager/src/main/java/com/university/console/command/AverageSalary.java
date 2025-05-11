@@ -9,17 +9,13 @@ import org.springframework.stereotype.Component;
 public class AverageSalary implements Command {
 
     @Autowired
-    public CommandService commandService;
+    private CommandService commandService;
 
     @Override
     public boolean execute(String input) {
         if (!input.startsWith("Show the average salary for the department")) { return false; }
         String departmentName = input.replace("Show the average salary for the department", "").trim();
-        try {
-            System.out.println(commandService.getAverageSalary(departmentName));
-        } catch (RuntimeException ex) {
-            System.out.println(ex.getMessage());
-        }
+        System.out.println(commandService.getAverageSalary(departmentName));
         return true;
     }
 }

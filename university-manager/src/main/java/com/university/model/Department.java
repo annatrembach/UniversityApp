@@ -21,18 +21,12 @@ public class Department {
     @ManyToMany(mappedBy = "departments", fetch = FetchType.EAGER)
     private List<Lector> lectors;
 
-    // constructors
-
-    public Department(String name, Lector head, List<Lector> lectors) {
+    public Department(String name) {
         this.name = name;
-        this.head = head;
-        this.lectors = lectors;
     }
 
     public Department() {
     }
-
-    // getters and setters
 
     public Long getId() {
         return Id;
@@ -60,21 +54,6 @@ public class Department {
 
     public void setLectors(List<Lector> lectors) {
         this.lectors = lectors;
-    }
-
-    // equals and hashCode
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Department that = (Department) o;
-        return Objects.equals(Id, that.Id) && Objects.equals(name, that.name) && Objects.equals(head, that.head) && Objects.equals(lectors, that.lectors);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Id, name, head, lectors);
     }
 
 
