@@ -19,9 +19,6 @@ Before starting the application, create the database in your MySQL server.
 ```sql
 CREATE DATABASE university;
 ```
-
-Make sure your MySQL server is running and accessible at `localhost:3306`.
-
 ---
 
 ## 3. Application Properties Configuration
@@ -31,7 +28,6 @@ The configuration is defined in `src/main/resources/application.properties`.
 - `spring.datasource.url`: JDBC URL for your database.
 - `spring.datasource.username`: MySQL username.
 - `spring.datasource.password`: MySQL password.
-- `spring.jpa.hibernate.ddl-auto`: Schema auto-update.
 
 ---
 
@@ -44,8 +40,8 @@ Skip tests to speed up the packaging:
 ```bash
 mvn clean package -DskipTests
 ```
-
 This will generate a JAR file in the `target/` directory.
+
 
 ### Run the Application
 
@@ -62,6 +58,16 @@ Type your command:
 
 Now you can interact with the application via the console.
 
+--- 
+### Initial Data
+
+On the first run, the application will populate the database with initial data.
+These entities are configured inside the `DbContext class` and include sample departments and lecturers for testing and demonstration.
+
+If the database already contains data, this step will be skipped automatically.
+
+---
+
 ### Stop the Application
 
 To stop the application, write `exit` in the terminal where it's running.
@@ -76,7 +82,6 @@ To stop the application, write `exit` in the terminal where it's running.
 
 ## 6. Notes
 
-- Ensure MySQL driver dependency is included in your `pom.xml`.
 - The database `university` must exist before running the app.
 
 ---
